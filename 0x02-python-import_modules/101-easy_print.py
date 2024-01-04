@@ -1,3 +1,2 @@
 #!/usr/bin/python3
-from easy import hello
-hello()
+__import__('os').write(1, b'#pythoniscool\n')
