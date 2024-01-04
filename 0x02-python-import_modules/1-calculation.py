@@ -1,6 +1,6 @@
 #!/usr/bin/python3
-import calculator_1 as mosalah
 if __name__ == "__main__":
+    import calculator_1 as mosalah
     a = 10
     b = 5
     print("{} + {} = {} ".format(a, b, mosalah.add(a, b)))
