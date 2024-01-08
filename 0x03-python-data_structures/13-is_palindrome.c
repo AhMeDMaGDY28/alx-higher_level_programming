@@ -1,30 +1,55 @@
 #include "lists.h"
-
 /**
- * reverse_listint - Reverse a linked list.
+ * check_length - Count the number of elements in a linked list.
  * @head: A pointer to the head of the linked list.
  *
- * This function reverses the linked list starting from 'head'.
+ * This function counts the number of elements in the linked list starting
+ * from 'head'.
  *
- * Return: A pointer to the new head of the reversed linked list.
+ * Return: The number of elements in the linked list.
  *
  * Author: AhMeDMaGDY28
  * School: ALX CO 1 BLENDED
  */
-listint_t *reverse_listint(listint_t **head)
+int check_length(listint_t *head)
 {
-    listint_t *prev = NULL, *current = *head, *next;
+	int i = 0;
+	listint_t *curr = head;
+	
+	if (!head)
+		return (0);
+	while (curr)
+	{
+		i++;
+		curr = curr->next;
+	}
+	return (i);
+}
+/**
+ * array_maker - Create an array from a linked list.
+ * @head: A pointer to the head of the linked list.
+ * @array: An array to store the elements of the linked list.
+ *
+ * This function creates an array containing the elements of the linked list
+ * starting from 'head'.
+ *
+ * Return: A pointer to the array.
+ *
+ * Author: AhMeDMaGDY28
+ * School: ALX CO 1 BLENDED
+ */
+int *array_maker(listint_t *head, int *array)
+{
+	int i = 0;
+	listint_t *number_taker = head;
 
-    while (current != NULL)
-    {
-        next = current->next;
-        current->next = prev;
-        prev = current;
-        current = next;
-    }
-
-    *head = prev;
-    return *head;
+	while (number_taker)
+	{
+		array[i] = number_taker->n;
+		number_taker = number_taker->next;
+		i++;
+	}
+	return (array);
 }
 /**
  * is_palindrome - Check if a linked list is a palindrome.
@@ -40,30 +65,32 @@ listint_t *reverse_listint(listint_t **head)
  */
 int is_palindrome(listint_t **head)
 {
-    listint_t *slow = *head, *fast = *head, *mid, *second_half;
+	int length_of_array = 0;
+	int mover_in_the_array = 0;
+	listint_t *sender = *head;
+	int *array;
 
-    if (*head == NULL || (*head)->next == NULL)
-        return 1;
+	length_of_array = check_length(sender);
+	if (length_of_array == 0)
+		return (1);
+	array = malloc(length_of_array * sizeof(int));
+	if (!array)
+	{
+		free(array);
+		return (0);
+	}
 
-    while (fast != NULL && fast->next != NULL)
-    {
-        slow = slow->next;
-        fast = fast->next->next;
-    }
-
-    second_half = reverse_listint(&slow);
-    mid = second_half;
-
-    while (*head != NULL && second_half != NULL)
-    {
-        if ((*head)->n != second_half->n)
-            return 0;
-
-        *head = (*head)->next;
-        second_half = second_half->next;
-    }
-    reverse_listint(&mid);
-
-    return 1;
+	array_maker(sender, array);
+	while (mover_in_the_array < length_of_array)
+	{
+		if (array[mover_in_the_array] != array[length_of_array - 1])
+		{
+			free(array);
+			return (0);
+		}
+		mover_in_the_array++;
+		length_of_array--;
+	}
+	free(array);
+	return (1);
 }
-
