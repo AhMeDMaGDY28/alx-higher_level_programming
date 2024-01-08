@@ -68,29 +68,21 @@ int is_palindrome(listint_t **head)
 	int length_of_array = 0;
 	int mover_in_the_array = 0;
 	listint_t *sender = *head;
-	int *array;
+	static int array[100000];
 
 	length_of_array = check_length(sender);
 	if (length_of_array == 0)
 		return (1);
-	array = malloc(length_of_array * sizeof(int));
-	if (!array)
-	{
-		free(array);
-		return (0);
-	}
 
 	array_maker(sender, array);
 	while (mover_in_the_array < length_of_array)
 	{
 		if (array[mover_in_the_array] != array[length_of_array - 1])
 		{
-			free(array);
 			return (0);
 		}
 		mover_in_the_array++;
 		length_of_array--;
 	}
-	free(array);
 	return (1);
 }
