@@ -11,6 +11,8 @@ def list_division(my_list_1, my_list_2, list_length):
             print("list_division by 0")
         except IndexError:
             print("out of range")
+        except Expection:
+            pass
         finally:
             new.append(div)
     return new
