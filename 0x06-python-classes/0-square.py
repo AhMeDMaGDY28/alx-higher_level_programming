@@ -8,3 +8,4 @@ class square:
     """
     this an empty class
     """
+    pass
