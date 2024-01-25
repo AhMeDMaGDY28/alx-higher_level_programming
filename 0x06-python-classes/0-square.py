@@ -1,11 +1,9 @@
 #!/usr/bin/python3
-"""
-this is an empty class which represents an square
+"""A module for working with squares.
 """
 
 
 class square:
-    """
-    this an empty class
+    """this an empty class
     """
     pass
