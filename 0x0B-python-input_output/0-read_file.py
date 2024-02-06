@@ -4,5 +4,6 @@
 
 def read_file(filename=""):
     """Prints the contents of a UTF8 text filename"""
-    file = open(str(filename), 'r', encoding="utf-8")
-    print(file.read(), end="")
+    with open(str(filename), encoding="utf-8") as file:
+        print("{}".format(file.read()), end="")
+        file.close()
