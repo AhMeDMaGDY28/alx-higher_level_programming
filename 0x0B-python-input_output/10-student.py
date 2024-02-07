@@ -16,8 +16,8 @@ class Student:
         dict = {}
         if type(attrs) is list:
             for i in attrs:
-                for key, value in self.__dict__.items():
+                for key, val in self.__dict__.items():
                     if i == key:
-                        dict[i] = value
+                        dict[i] = val
             return dict
         return self.__dict__
