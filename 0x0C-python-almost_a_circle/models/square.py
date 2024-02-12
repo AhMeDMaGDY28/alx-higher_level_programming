@@ -39,6 +39,12 @@ class Square(Rectangle):
         except IndexError:
             pass
 
+    def __str__(self):
+        return (
+                f"[{type(self).__name__}] ({self.id})"
+                f"{self.x}/{self.y} - {self.size}"
+                )
+
     def to_dictionary(self):
         """an dictionary representing of a square"""
         return {'id': self.id, 'x': self.x, 'size': self.size, 'y': self.y}
