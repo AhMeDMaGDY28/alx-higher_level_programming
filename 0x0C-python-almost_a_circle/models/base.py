@@ -57,16 +57,13 @@ class Base:
     @classmethod
     def load_from_file(cls):
         """loads JSON from file and convert it to object"""
-        filename = cls.__name__ + ".csv"
-        try:
-            with open(filename, "r", newline="") as csvfile:
-                if cls.__name__ == "Rectangle":
-                    fieldnames = ["id", "width", "height", "x", "y"]
-                else:
-                    fieldnames = ["id", "size", "x", "y"]
-                list_dicts = csv.DictReader(csvfile, fieldnames=fieldnames)
-                list_dicts = [dict([k, int(v)] for k, v in d.items())
-                              for d in list_dicts]
-                return [cls.create(**d) for d in list_dicts]
-        except IOError:
-            return []
+        from models.rectangle import Rectangle
+        from models.square import Square
+        file_name = cls.__name__ + ".json"
+        with open(file_name, encoding='utf-8') as file_a:
+            if cls is Rectangle:
+                return [Rectangle.create(**dictionary) for dictionary
+                        in Rectangle.from_json_string(file_a.read())]
+            if cls is Square:
+                return [Square.create(**dictionary) for dictionary
+                        in Square.from_json_string(file_a.read())]
