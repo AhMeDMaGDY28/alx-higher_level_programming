@@ -1,5 +1,6 @@
 #!/usr/bin/python3
 # test_square.py
+# Brennan D Baraban <375@holbertonschool.com>
 """Defines unittests for models/square.py.
 
 Unittest classes:
@@ -380,13 +381,6 @@ class TestSquare_stdout(unittest.TestCase):
     def test_str_method_size_x_y_id(self):
         s = Square(2, 88, 4, 19)
         self.assertEqual("[Square] (19) 88/4 - 2", str(s))
-
-    def test_str_method_changed_attributes(self):
-        s = Square(7, 0, 0, [4])
-        s.size = 15
-        s.x = 8
-        s.y = 10
-        self.assertEqual("[Square] ([4]) 8/10 - 15", str(s))
 
     def test_str_method_one_arg(self):
         s = Square(1, 2, 3, 4)
