@@ -1,5 +1,7 @@
 #!/usr/bin/node
-let first = 'C is fun\n';
-let second = 'Python is cool\n';
+let first = 'C is fun';
+let second = 'Python is cool';
 let last = 'JavaScript is amazing';
-console.log(first + second + last);
+console.log(first);
+console.log(second);
+console.log(last);
