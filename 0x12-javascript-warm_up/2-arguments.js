@@ -1,5 +1,5 @@
 #!/usr/bin/node
-const { argv } = require("node:process");
+const argv = process.argv;
 if (argv[3]) {
   console.log("Arguments found");
 } else if (argv[2]) {
