@@ -1,5 +1,5 @@
 #!/usr/bin/node
-//prints two arguments passed to it, in the following format: “ is ”
+//prints two arguments passed to it
 
 const args = process.argv;
 let first = args[2];
