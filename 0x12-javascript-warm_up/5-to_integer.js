@@ -1,10 +1,14 @@
 #!/usr/bin/node
-// Print a specified string only if the first argument can be converted to an integer
+// a script that prints My number: <first argument converted in integer> if the first argument can be converted to an integer:
+
+// If the argument can’t be converted to an integer, print “Not a number”
+// You must use console.log(...) to print all output
+// You are not allowed to use var
+// You are not allowed to use try/catch
 
 const args = process.argv;
-const number = parseInt(args[2], 10);
-if (isNaN(number)) {
-  console.log('Not a number');
+if (!isNaN(parseInt(args[2], 10))) {
+  console.log('My number: ' + parseInt(args[2], 10));
 } else {
-  console.log(`My number: ${number}`);
+  console.log('Not a number');
 }
