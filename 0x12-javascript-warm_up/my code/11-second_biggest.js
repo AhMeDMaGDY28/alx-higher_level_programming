@@ -17,10 +17,12 @@ if (!args[2]) {
   process.exit(0);
 }
 for (let index = 2; index < args.length; index++) {
-  let temp = parseInt(args[index]);
-  if (FirstBig < temp) {
+  let num = parseInt(args[index]);
+  if (FirstBig < num) {
     SecondBig = FirstBig;
-    FirstBig = temp;
+    FirstBig = num;
+  } else if (num > SecondBig && num !== FirstBig) {
+    SecondBig = num;
   }
 }
 if (SecondBig !== -Infinity) {
