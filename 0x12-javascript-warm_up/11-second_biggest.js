@@ -10,10 +10,10 @@
 
 const args = process.argv;
 let FirstBig = -Infinity;
-let SecondBig = -Infinity;
+let SecondBig;
 
 if (!args[2]) {
-  console.log(1);
+  console.log(0);
   process.exit(0);
 }
 for (let index = 2; index < args.length; index++) {
@@ -23,4 +23,8 @@ for (let index = 2; index < args.length; index++) {
     FirstBig = temp;
   }
 }
-console.log(SecondBig);
+if (SecondBig !== -Infinity) {
+  console.log(SecondBig);
+} else {
+  console.log(0);
+}
