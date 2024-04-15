@@ -12,28 +12,30 @@
 // Create an instance method called double() that multiples the width and the height of the rectangle by 2
 
 class Rectangle {
-  constructor(w, h) {
+  constructor (w, h) {
     if (w > 0 && h > 0) {
       this.width = w;
       this.height = h;
     }
   }
 
-  print() {
+  print () {
     for (let coloum = 0; coloum < this.height; coloum++) {
-      let printcoloum = "";
+      let printcoloum = '';
       for (let row = 0; row < this.width; row++) {
-        printcoloum += "X";
+        printcoloum += 'X';
       }
       console.log(printcoloum);
     }
   }
-  rotate() {
+
+  rotate () {
     const temp = this.width;
     this.width = this.height;
     this.height = temp;
   }
-  double() {
+
+  double () {
     this.width *= 2;
     this.height *= 2;
   }
