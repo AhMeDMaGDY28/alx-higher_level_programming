@@ -1,48 +1,55 @@
 #!/usr/bin/python3
 """
-a script that lists all states with a name starting
-with N (upper N) from the database hbtn_0e_0_usa:
+a script that takes in an argument and displays all values
+in the states table of hbtn_0e_0_usa where name matches the argument.
 
-Your script should take 3 arguments: mysql username,
-mysql password and database name (no argument validation needed)
+Your script should take 4 arguments: mysql username, mysql password,
+database name and state name searched (no argument validation needed)
 You must use the module MySQLdb (import MySQLdb)
 Your script should connect to a MySQL server running on localhost at port 3306
+You must use format to create the SQL query with the user input
 Results must be sorted in ascending order by states.id
 Results must be displayed as they are in the example below
 Your code should not be executed when imported
 """
-
+# to use the argv from the system when running the code
 from sys import argv
-import MySQLdb
-"""line 15: to use the argv from the system when running the code"""
-"""line 17: to use database with python"""
 
-"""this stop the code from excuting if imported"""
+# to use database with python
+import MySQLdb
+
+
+# this stop the code from excuting if imported
 if __name__ == "__main__":
-    """Connect to the database"""
+    # Connect to the database
     Data_Base_connection = MySQLdb.connect(
         host="localhost", port=3306, user=argv[1], passwd=argv[2], db=argv[3]
     )
-    """making a cursor using the connection"""
-    cursor = Data_Base_connection.cursor()
-    """the sql formula which going to be excuted"""
-    Sql_Formula = "\
-    SELECT * FROM states\
-    WHERE states.name LIKE 'N%'\
-         ORDER BY states.id"
 
-    """the excute command to excute the formula"""
+    # making a cursor using the connection
+    cursor = Data_Base_connection.cursor()
+    
+    # a var for the name which we will get inputed
+    name =  argv[4]
+    
+    # the sql formula which going to be excuted
+    Sql_Formula = f"\
+    SELECT * FROM states\
+    WHERE states.name = '{name}'\
+    ORDER BY states.id"
+
+    # the excute command to excute the formula
     cursor.execute(Sql_Formula)
 
-    """fecthing all the data"""
-    DATA_fetched = cursor.fetchall()
+    # fecthing all the data
+    DATA_fetched_Rows = cursor.fetchall()
 
-    """printing the data"""
-    for data_in_row in DATA_fetched:
-        print(data_in_row)
+    # printing the data
+    for data_row in DATA_fetched_Rows:
+        print(data_row)
 
-    """closing the cursor"""
+    # closing the cursor
     cursor.close()
 
-    """closing the connection"""
+    # closing the connection
     Data_Base_connection.close()

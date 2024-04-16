@@ -32,7 +32,7 @@ if __name__ == "__main__":
     Sql_Formula = "\
     SELECT * FROM states\
     WHERE states.name LIKE BINARY 'N%'\
-         ORDER BY states.id"
+    ORDER BY states.id"
 
     # the excute command to excute the formula
     cursor.execute(Sql_Formula)
