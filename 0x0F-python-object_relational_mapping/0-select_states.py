@@ -11,36 +11,37 @@ Your code should not be executed when imported
 """
 # to use the argv from the system when running the code
 from sys import argv
+# to use database with python
 import MySQLdb
 
-"""
-line 12:
-line 13: to use database with python
-this stop the code from excuting if imported"""
+
+# this stop the code from excuting if imported
 if __name__ == "__main__":
-    """Connect to the database"""
+    # Connect to the database
     Data_Base_connection = MySQLdb.connect(
         host="localhost", port=3306, user=argv[1], passwd=argv[2], db=argv[3]
     )
-    """making a cursor using the connection"""
+
+    # making a cursor using the connection
     cursor = Data_Base_connection.cursor()
-    """the sql formula which going to be excuted"""
+
+    # the sql formula which going to be excuted
     Sql_Formula = "\
     SELECT * FROM states\
          ORDER BY states.id"
 
-    """the excute command to excute the formula"""
+    # the excute command to excute the formula
     cursor.execute(Sql_Formula)
 
-    """fecthing all the data"""
+    # fecthing all the data
     DATA_fetched_Rows = cursor.fetchall()
 
-    """printing the data"""
+    # printing the data
     for data_row in DATA_fetched_Rows:
         print(data_row)
 
-    """closing the cursor"""
+    # closing the cursor
     cursor.close()
 
-    """closing the connection"""
+    # closing the connection
     Data_Base_connection.close()
