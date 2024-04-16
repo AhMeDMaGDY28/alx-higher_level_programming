@@ -9,11 +9,16 @@ import MySQLdb
 
 if __name__ == "__main__":
     database_connection = MySQLdb.connect(
-        host="localhost", port=3306, user=argv[1], passwd=argv[2], db=argv[3]
+        host="localhost",
+        user=argv[1],
+        passwd=argv[2],
+        db=argv[3],
+        port=3306,
     )
     cursor = database_connection.cursor()
     cursor.execute(
-        "SELECT * FROM states WHERE states.name LIKE 'N%' ORDER BY states.id"
+        """SELECT * FROM states WHERE name
+                LIKE BINARY 'N%' ORDER BY id"""
     )
     rows = cursor.fetchall()
     for row in rows:
