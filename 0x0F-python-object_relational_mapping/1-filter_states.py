@@ -31,7 +31,7 @@ if __name__ == "__main__":
     # the sql formula which going to be excuted
     Sql_Formula = "\
     SELECT * FROM states\
-    WHERE states.name LIKE 'N%'\
+    WHERE states.name LIKE BINARY 'N%'\
          ORDER BY states.id"
 
     # the excute command to excute the formula
