@@ -1,5 +1,7 @@
 #!/usr/bin/python3
-"""a script that lists all states from the database hbtn_0e_0_usa:
+"""
+a script that lists all states with a name starting
+with N (upper N) from the database hbtn_0e_0_usa:
 
 Your script should take 3 arguments: mysql username,
 mysql password and database name (no argument validation needed)
@@ -11,10 +13,9 @@ Your code should not be executed when imported
 """
 from sys import argv
 import MySQLdb
-
 """
-line 12: to use the argv from the system when running the code
-line 13: to use database with python
+line 14: to use the argv from the system when running the code
+line 15: to use database with python
 this stop the code from excuting if imported"""
 if __name__ == "__main__":
     """Connect to the database"""
@@ -26,17 +27,18 @@ if __name__ == "__main__":
     """the sql formula which going to be excuted"""
     Sql_Formula = "\
     SELECT * FROM states\
+    WHERE states.name LIKE 'N%'\
          ORDER BY states.id"
 
     """the excute command to excute the formula"""
     cursor.execute(Sql_Formula)
 
     """fecthing all the data"""
-    DATA_fetched = cursor.fetchall()
+    rows = cursor.fetchall()
 
     """printing the data"""
-    for data_in_row in DATA_fetched:
-        print(data_in_row)
+    for row in rows:
+        print(row)
 
     """closing the cursor"""
     cursor.close()
