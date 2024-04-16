@@ -14,7 +14,7 @@ from sys import argv
 import MySQLdb
 
 """
-line 12: 
+line 12:
 line 13: to use database with python
 this stop the code from excuting if imported"""
 if __name__ == "__main__":
