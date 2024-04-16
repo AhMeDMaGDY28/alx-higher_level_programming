@@ -35,7 +35,7 @@ if __name__ == "__main__":
     # the sql formula which going to be excuted
     Sql_Formula = f"\
     SELECT * FROM states\
-    WHERE states.name = '{name}'\
+    WHERE states.name LIKE BINARY '{name}'\
     ORDER BY states.id"
 
     # the excute command to excute the formula
