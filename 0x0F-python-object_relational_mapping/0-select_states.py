@@ -32,11 +32,11 @@ if __name__ == "__main__":
     cursor.execute(Sql_Formula)
 
     """fecthing all the data"""
-    DATA_fetched = cursor.fetchall()
+    DATA_fetched_Rows = cursor.fetchall()
 
     """printing the data"""
-    for data_in_row in DATA_fetched:
-        print(data_in_row)
+    for data_row in DATA_fetched_Rows:
+        print(data_row)
 
     """closing the cursor"""
     cursor.close()
