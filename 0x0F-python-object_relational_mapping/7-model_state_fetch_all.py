@@ -1,37 +1,47 @@
 #!/usr/bin/python3
 """
-This script retrieves and prints all states from the specified database.
+A script that lists all State objects from the database hbtn_0e_6_usa.
+
+This script connects to a MySQL server running on localhost at port 3306
+and retrieves all State objects from the specified database. The results
+are sorted in ascending order by states.id.
+
+Usage: ./script.py <mysql_username> <mysql_password> <database_name>
 """
 
-import sys
-from model_state import Base, State
+# Import necessary modules
+from sys import argv
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
+from model_state import State, Base
 
+# this stop the code from executing if imported
 if __name__ == "__main__":
-    """
-    Connect to the database
-    """
-    engine = create_engine(
-        "mysql+mysqldb://{}:{}@localhost/{}".format(
-            sys.argv[1], sys.argv[2], sys.argv[3]
-        ),
-        pool_pre_ping=True,
-    )
+    # Construct the database connection string
+    db_connection_string = \
+        f"mysql+mysqldb://{argv[1]}:{argv[2]}@localhost/{argv[3]}"
 
-    """
-    Create all tables in the database
-    """
+    # Create the SQLAlchemy engine
+    engine = create_engine(db_connection_string, pool_pre_ping=True)
+
+    # Create all tables in the database (if they do not exist already)
     Base.metadata.create_all(engine)
 
-    """
-    Create a session to interact with the database
-    """
+    # Create a sessionmaker instance
     Session = sessionmaker(bind=engine)
+
+    # Create a session
     session = Session()
 
-    """
-    Query all states and print them
-    """
-    for id, name in session.query(State.id, State.name).order_by(State.id):
-        print("{}: {}".format(id, name))
+    try:
+        # Retrieve all State objects and print them
+        states = session.query(State).order_by(State.id).all()
+        for state in states:
+            print(f"{state.id}: {state.name}")
+
+    finally:
+        # Close the session
+        session.close()
+
+    # Dispose of the engine
+    engine.dispose()
