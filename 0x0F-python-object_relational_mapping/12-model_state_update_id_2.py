@@ -42,9 +42,7 @@ if __name__ == "__main__":
     try:
         # Retrieve all State objects and print them
 
-        wanted_to_update = session.query(State)\
-        .filter_by(id=2)\
-        .one_or_none()
+        wanted_to_update = session.query(State).filter_by(id=2).one_or_none()
 
         wanted_to_update.name = "New Mexico"
 
