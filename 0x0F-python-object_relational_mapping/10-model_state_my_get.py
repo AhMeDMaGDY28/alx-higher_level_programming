@@ -1,45 +1,64 @@
 #!/usr/bin/python3
-
 """
-A script to retrieve and print the ID of a specific state from the database.
+a script that lists all State objects that contain the
+letter a from the database hbtn_0e_6_usa
 
-Usage:
-    ./retrieve_state_id.py <username> <password> <database> <state_name>
-
-Arguments:
-    username:   The username to connect to the MySQL database.
-    password:   The password to connect to the MySQL database.
-    database:   The name of the MySQL database.
-    state_name: The name of the state whose ID is to be retrieved.
-
-Example:
-    ./retrieve_state_id.py root password hbtn_0e_6_usa "California"
-"""
-
-import sys
+Your script should take 3 arguments: mysql username, mysql
+password and database name
+You must use the module SQLAlchemy
+You must import State and Base from model_state -
 from model_state import Base, State
+Your script should connect to a MySQL server running on localhost at port 3306
+Results must be sorted in ascending order by states.id
+The results must be displayed as they are in the example below
+Your code should not be executed when imported
+"""
+
+# Import necessary modules
+from sys import argv
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
+from model_state import State, Base
 
+# this stop the code from excuting if imported
 if __name__ == "__main__":
-    engine = create_engine(
-        "mysql+mysqldb://{}:{}@localhost/{}".format(
-            sys.argv[1], sys.argv[2], sys.argv[3]
-        ),
-        pool_pre_ping=True,
+    # Construct the database connection string
+    DataBase_connection_Formula = (
+        f"mysql+mysqldb://{argv[1]}:{argv[2]}@localhost/{argv[3]}"
     )
+
+    # Create the SQLAlchemy engine
+    engine = create_engine(DataBase_connection_Formula, pool_pre_ping=True)
+
+    # Create all tables in the database (if they do not exist already)
     Base.metadata.create_all(engine)
+
+    # Create a sessionmaker instance
     Session = sessionmaker(bind=engine)
+
+    # Create a session
     session = Session()
 
-    state_name = sys.argv[4]
-    found = False
+    Inputed_Name = f"{argv[4]}"
 
-    for state in session.query(State):
-        if state.name == state_name:
-            print(state.id)
-            found = True
-            break
+    try:
+        # Retrieve all State objects and print them
+        states = (
+            session.query(State)
+            .filter(State.name.like(Inputed_Name))
+            .order_by(State.id)
+            .all()
+        )
+        # Check if the state exists
+        if states:
+            print(f"{states[0].id}")
 
-    if not found:
-        print("Not found")
+        else:
+            print("Not found")
+
+    finally:
+        # Close the session
+        session.close()
+
+    # Dispose of the engine
+    engine.dispose()
