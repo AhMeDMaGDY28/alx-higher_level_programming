@@ -22,6 +22,7 @@ from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from model_state import State, Base
 
+# this stop the code from excuting if imported
 if __name__ == "__main__":
     # Construct the database connection string
     DataBase_connection_Formula = (
