@@ -1,41 +1,57 @@
 #!/usr/bin/python3
-
 """
-A script to update a state name in the database.
+a script that changes the name of a State object
+from the database hbtn_0e_6_usa
 
-Usage:
-    ./update_state.py <username> <password> <database>
-
-Arguments:
-    username: The username to connect to the MySQL database.
-    password: The password to connect to the MySQL database.
-    database: The name of the MySQL database.
-
-Example:
-    ./update_state.py root password hbtn_0e_6_usa
-"""
-
-import sys
+Your script should take 3 arguments: mysql username,
+mysql password and database name
+You must use the module SQLAlchemy
+You must import State and Base from model_state -
 from model_state import Base, State
+Your script should connect to a MySQL server
+running on localhost at port 3306
+Change the name of the State where id = 2 to New Mexico
+Your code should not be executed when imported
+"""
+
+# Import necessary modules
+from sys import argv
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
+from model_state import State, Base
 
+# this stop the code from excuting if imported
 if __name__ == "__main__":
-    engine = create_engine(
-        "mysql+mysqldb://{}:{}@localhost/{}".format(
-            sys.argv[1], sys.argv[2], sys.argv[3]
-        ),
-        pool_pre_ping=True,
+    # Construct the database connection string
+    DataBase_connection_Formula = (
+        f"mysql+mysqldb://{argv[1]}:{argv[2]}@localhost/{argv[3]}"
     )
+
+    # Create the SQLAlchemy engine
+    engine = create_engine(DataBase_connection_Formula, pool_pre_ping=True)
+
+    # Create all tables in the database (if they do not exist already)
     Base.metadata.create_all(engine)
+
+    # Create a sessionmaker instance
     Session = sessionmaker(bind=engine)
+
+    # Create a session
     session = Session()
 
-    """Update the state name with id 2 to 'New Mexico'"""
-    for state in session.query(State):
-        if state.id == 2:
-            state.name = "New Mexico"
-            break
+    try:
+        # Retrieve all State objects and print them
 
-    """Commit the changes"""
-    session.commit()
+        wanted_to_update = session.query(State)\
+        .filter_by(id=2)\
+        .one_or_none()
+
+        wanted_to_update.name = "New Mexico"
+
+    finally:
+        # Close the session
+        session.commit()
+        session.close()
+
+    # Dispose of the engine
+    engine.dispose()
