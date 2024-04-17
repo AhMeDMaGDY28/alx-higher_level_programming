@@ -29,6 +29,7 @@ if __name__ == "__main__":
     # making a cursor using the connection
     cursor = Data_Base_connection.cursor()
 
+    # to stop the mysql injection
     if len(argv[4].split()) == 1:
         # a var for the name which we will get inputed
         name = argv[4]
