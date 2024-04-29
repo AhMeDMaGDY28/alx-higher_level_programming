@@ -1,5 +1,6 @@
 #!/usr/bin/python3
-"""A Python script that sends a request to a URL and displays the body of the response,
+"""A Python script that sends a request to a URL
+and displays the body of the response,
 handling HTTP errors if they occur."""
 
 from sys import argv
