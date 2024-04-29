@@ -3,21 +3,21 @@
 displays the value of the X-Request-Id
 variable found in the header of the response."""
 
-import sys
+from sys import argv
 import urllib.parse
 import urllib.request
 
 if __name__ == "__main__":
-    url = sys.argv[1]
-    email = sys.argv[2]
+    url = argv[1]
+    email = argv[2]
 
     val = {"email": email}
     # Encode the email parameter
     data = urllib.parse.urlencode(val)
     data = data.encode("utf-8")  # Data should be bytes
-    req = urllib.request.Request(url, data=data, method="POST")
+    req = urllib.request.Request(url, data)
 
-    with urllib.request.urlopen(req) as response:
+    with urllib.request.urlopen(req) as respon:
         # Read the response body and decode it
-        resp_body = response.read()
+        resp_body = respon.read()
         print(resp_body)
