@@ -11,12 +11,13 @@ if __name__ == "__main__":
     url = sys.argv[1]
     email = sys.argv[2]
 
+    val = {"email": email}
     # Encode the email parameter
-    data = urllib.parse.urlencode({"email": email})
-    data = data.encode("ascii")  # Data should be bytes
+    data = urllib.parse.urlencode(val)
+    data = data.encode("utf-8")  # Data should be bytes
     req = urllib.request.Request(url, data=data, method="POST")
 
     with urllib.request.urlopen(req) as response:
         # Read the response body and decode it
-        resp_body = response.read().decode("utf-8")
+        resp_body = response.read()
         print(resp_body)
