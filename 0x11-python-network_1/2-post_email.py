@@ -1,7 +1,7 @@
 #!/usr/bin/python3
-"""a Python script that takes in a URL, sends a request to the URL and
-displays the value of the X-Request-Id
-variable found in the header of the response."""
+"""A Python script that sends a POST
+request with an email parameter to a given URL
+and displays the body of the response."""
 
 from sys import argv
 import urllib.parse
@@ -9,14 +9,24 @@ import urllib.request
 
 
 if __name__ == "__main__":
-    URL = argv[1]
+    # Extract the email and URL from command line arguments
     email = argv[2]
-    # Encode the email parameter
-    data = urllib.parse.urlencode({"email": email})
-    data = data.encode("utf-8")
-    request = urllib.request.Request(URL, data)
+    url = argv[1]
 
-    with urllib.request.urlopen(request) as respon:
-        # Read the response body and decode it
-        body_resp = respon.read()
-        print(body_resp.decode("utf-8"))
+    # Define the parameters to be sent in the POST request
+    params = {"email": email}
+
+    # Encode the parameters
+    data = urllib.parse.urlencode(params)
+    data = data.encode("utf-8")
+
+    # Create a POST request with the encoded data
+    request = urllib.request.Request(url, data)
+
+    # Send the request and handle the response
+    with urllib.request.urlopen(request) as response:
+        # Read the body of the response and decode it
+        body_response = response.read().decode("utf-8")
+
+        # Print the body of the response
+        print(body_response)
