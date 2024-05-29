@@ -1,3 +1,3 @@
-$("DIV#update_header").click(function() {
-    $("header").text("New Header!!!").css("color","red")
-})
+$('DIV#update_header').click(function () {
+  $('header').text('New Header!!!').css('color', 'red');
+});
